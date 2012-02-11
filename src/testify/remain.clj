@@ -2,6 +2,7 @@
     (:require [redis.core :as redis])
     (:require [clojure.string :as string])
     (:require [clojure.contrib.str-utils :as str-utils])
+    (:require [redis.core :as redis])
 )
 
 (defn redis-creds []
