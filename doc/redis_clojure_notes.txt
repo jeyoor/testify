@@ -1,0 +1,17 @@
+Re #1: Good catch! Added info command & modified tests to check for it. 
+Re #2: Here's the issue I've been observing.
+
+    (No previous connections, no password set)
+    user=> (redis.core/with-server {:host "127.0.0.1"} (redis.core/config "set" "requirepass" "mysecret"))
+    "OK"
+    user=> (redis.core/with-server {:host "127.0.0.1"} (redis.core/auth "mysecret"))
+    NoSuchElementException Could not create a validated object, cause: ERR operation not permitted  org.apache.commons.pool.impl.GenericKeyedObjectPool.borrowObject (GenericKeyedObjectPool.java:1234)
+
+On the other hand, this process causes no connection drop.
+
+    (No previous connections, no password set)
+    user=> (redis.core/with-server {:host "127.0.0.1"} (redis.core/config "set" "requirepass" "mysecret") (redis.core/auth "mysecret") )
+    "OK"
+
+I attribute the above behavior to the validation method (PING throwing an error if the passwords do not match). Is this acceptable? 
+Thanks, Jeyan

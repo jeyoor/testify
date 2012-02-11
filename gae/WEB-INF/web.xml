@@ -1,0 +1,1 @@
+<web-app><servlet><servlet-name>testify.core/app servlet</servlet-name><servlet-class>testify.servlet</servlet-class></servlet><servlet-mapping><servlet-name>testify.core/app servlet</servlet-name><url-pattern>/*</url-pattern></servlet-mapping></web-app>

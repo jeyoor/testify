@@ -1,0 +1,5 @@
+<p id=testimony class=text>Testimony goes here</p>
+
+<img id=picture src=test.jpg class=image />
+
+<p id=praises class=text>Other testimony goes here </p>

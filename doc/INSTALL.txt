@@ -1,0 +1,13 @@
+Testify expects the following environment variables to be set. 
+
+TESTIFY_DIR -- set if the location of the resources folder is unusual
+Example:
+/webapps/ROOT/WEB-INF/classes
+
+VMC_APP_NAME -- set only in production/staging environments
+Example:
+testify
+
+VCAP_SERVICES -- used for grabbing redis credentials
+Example:
+{"redis-2.2":[{"name":"redis-hello","label":"redis-2.2","plan":"free","tags":["redis","redis-2.2","key-value","nosql"],"credentials":{"node_id":"redis_node_1","hostname":"172.30.48.40","port":5005,"password":"d96f716a-e523-4356-a355-7a744109e8e9","name":"redis-3ecf3080-6e86-463f-a8a3-1cc941ea4a81"}}]}

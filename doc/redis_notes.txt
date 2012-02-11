@@ -1,0 +1,23 @@
+redis notes
+
+Redis is a data structure server.
+
+INCR (atomic increment)
+
+Keys are "binary safe"
+
+Some sort of schema for keys is helpful
+object-type:id:field
+
+Redis uses linked lists for List data type
+
+Lists -- sequentially ordered, thousands possible
+
+Sets -- unordered (good for tags),
+    SADD (set add), SREM, SUNION (no duplicates)
+
+0 is false. (fail)
+1 is true.
+
+CLOJURE CLIENT
+    returns true/false instead of 1/0

@@ -1,0 +1,5 @@
+(GET "/debug/echo" [& params] (debug/echo params) )
+ONLY GETS FORM RESPONSE
+
+(GET "/debug/echo" [:as params] (debug/echo params) )
+GETS EVERYTHING

@@ -1,0 +1,64 @@
+Testify Design Goals (Broad)
+    Backend Redesign
+        Reorganize internally
+            Use enlive throughout
+        Use persistence framework (Redis)
+            Make create-thing smarter (datatypes)
+            Create CRUD macros (save typing)
+            Fix "broken pipe" connection pooling issue
+        Unit testing
+        Input validation
+        Ajax support (esp. "add page" to support dynamic preview)
+    HTML redesign
+        Branding
+        Visual "look & feel"
+        Navigation (backlinks)
+    Security redesign
+        User authentication
+        Social network integration (Intl')
+        CSRF
+        Encapsulate app (keep creds private)
+        Learn redis-clojure connection pooling stuff
+        
+
+Action Points
+    Finish coding sitemap
+        /admin
+        /resource/rname 
+            use ring.util.response/file-response 
+            from redis to memory buffer?
+        /admin/resource/form
+        /admin/resource/save
+        /admin/resource/delete
+        /admin/template/delete
+        /admin/page/delete
+        /page/delete
+    Debugging prod
+        Alter failsafe to check for that exception
+        Debug why redis calls were failing
+            Redis was fine, routing was wrong.
+                Using when? is NOT OK.
+    Typing on view-page (need IMG tags at right places) 
+    Tranactional redis
+        make update tranact
+    Clarify routes 
+        move restore to admin
+        NOTE: route/not-found returns  (routes (ANY "/a/url" [aoeu] {response} ))
+    Verify that prod error routing is correct
+    Improve appear.clj
+        use maps for args to snippets
+        Validate HTML
+        Make many lis under one ul instead of current step
+    Make docstrings, comments, etc. more consistent
+    Cleanup persist.clj/restore 
+        Go back and make restore-page defaults good
+        Make restore-names generic (allow hash restore? Maybe ascii ok)
+    
+    
+*************************    
+WhyJSmiles Redesign goals
+Shadows
+    End of game checking not working online
+Lightmaze
+    make everything bigger for smartphone usage
+    make lower fps FOR SMARTPHONES

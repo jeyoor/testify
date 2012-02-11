@@ -1,0 +1,27 @@
+To watch everything that goes into the Redis server, connect to it via telnet,
+and run the monitor command.
+
+  $ telnet localhost 6379
+  > auth test
+  > monitor
+
+You'll get to see every command that hits the server.
+
+If you want to muck around with Redis yourself, you can do so easily from
+Python:
+
+  $ easy_install redis
+  $ python
+  >> from redis import Redis
+  >> rserv = Redis(hostname='localhost', port=6379)
+  >> rserv.auth('test')
+  >> rserv.keys('template*html')
+  1
+  template:my_template:html
+  >> rserv.get('template:my_template:html')
+
+Of course, if you want to go old-school, you can run these commands from telnet.
+
+  ...
+  > keys template*html
+  > get template:my_template:html

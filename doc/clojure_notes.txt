@@ -1,0 +1,50 @@
+OBSCURE ERRORS
+    java.lang.IllegalArgumentException: Parameter declaration if should be a vector (persist.clj:6)
+    May be thrown by defn missing params vector
+    i.e. (defn blah ) without []
+    Leiningen takes class names with hyphen (ex: test-redis) and converts file/dirnames with underscore (test_redis)
+
+Cntr-L clears the lein repl! :-D
+
+#{} is sets
+
+[& params] MAKES A LIST OF THE REMAINING PARAMS. (& gives it)
+[:as params] TAKES ALL THE REMAINING PARAMS (& gives 'em)
+
+#(re-gsub #"\n" "" %) 
+Anonymous function
+%N is the Nth arg
+This specific one regexes and swaps stuff
+
+If things aren't compiling, kill lein ring server and restart.
+If classpath isn't, run "lein classpath".
+
+(partition 2 [1 2 3 4 5 6])
+ == ((1 2) (3 4) ...)
+ 
+ (interleave colls) [concat first items of colls, the 2nd, etc.]
+ 
+ (zipmap [:key1 :key2] [val1 val2] )
+    == {:key2 val2, :key1 val1}
+    
+MACROS
+    Syntax
+        backquote (`) is the syntax quote
+            just expands to the text
+        tilde (~) is the unquote
+              (~@) expands a quoted thing to a list [good for stmt lists]
+        hash  (#) is the syntax gen-symbol
+    Uses
+        Only evaluate SOME of the args
+            Example: if-then-else            
+        Expand, THEN evaluate
+            Example: I want these stmts to run in my db context
+    Tips
+        ` everything that you want to expand into
+        within the `, use name# to create hygenic local names
+        ~fn or ~stmt UNQUOTE (evals) the stuff appropriately
+        This avoids having to pass a buncha anon funs i.e. 
+        #(dostuff %) instead of just dostuff
+        
+CONCURRENCY (when immutable isn't enough :-)
+

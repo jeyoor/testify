@@ -1,0 +1,165 @@
+Testify Design
+
+things E {pages,templates,resources}
+
+EVERYTHING is in redis...
+
+Templates
+    Ordinary HTML
+    CSS classes define overrides
+        text
+            override content
+            regex out da evil chars, mon
+        multitext
+            override content
+            provide multiline editing
+            regex out any evil chars?
+        image
+            ONLY allows images hosted on local site 
+            override attr:src
+        video
+            ONLY allows GodTube (for now)
+            See sample script for override (id is fe10cmnu) [override whole tag?], use substitute
+            Allow user to copy/paste all html, just regex for the id?
+            
+            Sample script
+            <script type="text/javascript" src="http://www.godtube.com/embed/source/fe10cmnu.js?w=400&h=255&ap=true&sl=true&title=true"></script>
+    Examples <!-- for subs,  type indicator -->
+        <a id="bob" class="target" class="link"> href="blahahha" </a>
+        Input form would say Bob (type a URL):
+        <object id="bob" class="target" class="link">. .... </object>
+        Input form would say 
+
+Persistence Structure? 
+    Setup for each thing
+        resources (SET with names of resources)
+        pages (SET with names)
+        templates (SET with names)    
+        res:name:file (ARBITRARY DATA)
+        res:name:type (? provide MIME type info to hanlder that pushes?)
+        pag:name:template  (TEMPNAME)
+        pag:name:subs  (SUBHASH)
+        pag:name:token (DELETION checksum)
+        tmp:name:html (flatfile?)
+        
+Code
+    Persist (model)
+        CREATE
+            Given newname, create thing --
+                if sadd newname == 1
+                    set thing:name:field1  resp1
+                    set thing:name:field2 resp2
+                else
+                    print "error! Already exists!"
+        READ
+            Lookup all things --
+                sort things asc alpha
+            Given pagename, give subs and template --
+                if sismember pages pagename == 1
+                    get thing:pagename:template
+                    if sismember templates platename == 1
+                        
+                    else
+                        print "error! page not found"
+                else
+                    print "error! page not found"
+            Given tempname, give subs
+        UPDATE
+            Given name, newthing
+        DELETE
+            Given name, delete thing
+                if sismember things name == 1
+                    srem name
+                    rem thing:name:field1
+                    rem thing:name:field2 
+        RESTORE 
+            For each existing thingname
+                Check if its fieldname is valid (if not, DELETE)
+                If valid, Check it has a matching name in momma set (if not, create it)
+
+            For each category, with fields and defaults
+                Check name for all fields
+                Plug defaults in for missing fields "restored"
+            
+    Process (controller)
+        Input list creation     
+            given template,
+            get list of subs, 
+            return html form
+        
+        Substitution 
+            given page, 
+            return html
+            
+        From lookup all map, create partitioned list for appear
+
+    Appear (use enliven?)
+        Give resource
+            From a URL, return a resource
+        Enlive templates
+            Basic
+                Include add page
+                (Include gallery?)
+                Include backlinks
+        Generate  (from a [lazy?] seq)
+            message
+            form
+            listing (with appropriate links)
+            
+HTML Template
+    Basic header
+    Content
+    Ajax popup?
+
+Sitemap
+    Home (ajaxified?) list of pages
+    Add page
+        Select template        
+        Generate input form 
+            (Parse CSS classes from template)
+            Input's Type-name map is made from template (TODO: save this to redis?)
+            Plug this type-name map into the input form
+                BASED on type, PERFORM different transformation
+            (client & server VALDIATE)
+        Enter substitutions
+        Save substitutions to redis
+    Delete page
+        Check auth-token 
+        If matches, delete page
+    Admin mode
+        Login
+            User submits auth token
+            User receives auth cookie [auth cookie saved to redis w/ expire]            
+            TODO CSRF protect?
+            Regenerate next auth token
+            User does admin stuff
+            Auth cookie expires [& on server]
+        Add template
+            Generate validated input form
+                TODO CSRF token?
+            Retrieve & validate HTML
+            Save to redis            
+        Add resource
+            Generate validated input form
+                TODO CSRF token?
+            Save resource to redis
+        Delete page
+        Delete template
+        Delete resource
+Bg workers
+    Save redis stuff
+    Return resource file from redis (code in appear?)
+    "purity" checks?
+    expire authentication
+  s
+Internal Datastructure Notes
+    How to call create-thing 
+        (create-thing "resource" "super.txt"  [':file, 'here] [':type,'text/plaintext] )
+        (get-thing "resource" "hi.txt" ":file") 
+    '' hashiyf
+        (hashify-thing "page" "jeyan_test" "subs" ":key1" "val1" ":key2" "val2")
+        
+Issues with persist
+    Vebosity
+    No hash/set type check support
+    Autoboxing with "(\"aoeuaoeu\")" around stuff

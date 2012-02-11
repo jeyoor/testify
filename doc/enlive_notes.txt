@@ -1,0 +1,90 @@
+Obscure Errors
+[:div#header :b] (content header) ;throws error on nil header
+USE A SET #{} for multiple selectors. ;otherwise, bizarre errors
+
+Low-level overview
+    From strings to nodes with html-snippet (text) or html-resource (URL)
+    From nodes to other nodes with at (or transform)
+    From nodes to html strings with emit*
+
+Enliven supports getting html, returing and searching clojure map.
+
+Lets abbrev as enlive-html as html
+    (html/html-resource java.net.url) ;get html document
+    (html/select htmldoc [:div.content :a]  ) ;get a tags in div w/ content clas
+    (html/select htmldoc [:td.subtext html/first-child] ) ;first child of subtext
+    (html/select htmldoc [html/root :> :h3 :a]) ;under root, get h3 children's a
+
+Enlive template is a macro that creates a function.
+    (html/deftemplate name "file.html" args & forms)
+    args is the text to sub in
+    forms is [:selector ...] (html/content replacements)
+        NOTE (html/content) RETURNS a function.    
+    example:
+    
+        (html/deftemplate index "tutorial/template1.html"
+            [ctxt]
+            [:p#message] (html/content (:message ctxt)))
+            
+        called like this
+        
+        (index {:message "We changed the message!"})
+        
+        ctxt is a map that has substitution->value pairs.
+        
+        (html/content) could also be written like this
+        [provides default value]
+        (fn [match]
+                 (if-let [msg (:message ctxt)]
+                   ((html/content msg) match)
+                   ((html/content "Nothing to see here!") match)))
+        
+
+Enliven snippent is like a template, but returns nodes INSTEAD of texts.
+
+Inheritance in enliven is like this:
+    Define basic template (with divs, for example)
+    Template function works like this (if nil, return base. Else, sub.)
+    Snippent functions work in a similar way, OR can just return html.
+    Viewfn  calls snippet, passes result into templates.
+
+
+
+Enlive Transformations (things to call after matching)
+  content            (content “xyz” a-node “abc”)             
+
+  html-content       (html-content “please no”)
+
+  wrap               (wrap :div) or (wrap :div {:class "foo"}) 
+
+  unwrap             unwrap
+
+  set-attr           (set-attr :attr1 “val1” :attr2 “val2”)
+
+  remove-attr        (remove-attr :attr1 :attr2) 
+
+  add-class          (add-class “foo” “bar”)
+
+  remove-class       (remove-class “foo” “bar”)
+
+  do→               (do→ transformation1 transformation2) 
+
+  clone-for          (clone-for [item items] transformation)
+
+                     or (clone-for [item items] 
+
+                          selector1 transformation1
+
+                          selector2 transformation2)
+
+  append             (append “xyz” a-node “abc”)
+
+  prepend            (prepend “xyz” a-node “abc”)
+
+  after              (after “xyz” a-node “abc”)
+
+  before             (before “xyz” a-node “abc”)
+
+  substitute         (substitute “xyz” a-node “abc”)
+
+  move               (move [:.footnote] [:#footnotes] content)

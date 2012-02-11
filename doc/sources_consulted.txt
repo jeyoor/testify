@@ -1,0 +1,65 @@
+sources consulted
+https://github.com/mmcgrana/ring/wiki/Getting-Started
+*https://github.com/weavejester/compojure/wiki/Getting-Started
+http://java.ociweb.com/mark/clojure/article.html
+https://github.com/weavejester/compojure/wiki/Routes-In-Detail
+http://clojure.org/cheatsheet
+http://clojure.github.com/clojure/clojure.core-api.html
+https://secure.wikimedia.org/wikibooks/en/wiki/Clojure_Programming
+http://download.oracle.com/javase/6/docs/api/
+http://stackoverflow.com/questions/1191628/block-comments-in-clojure
+Serialization
+http://stackoverflow.com/questions/3301439/clojure-data-structure-serialization
+http://clojuredocs.org/clojure_core/clojure.core/*print-dup*
+http://www.mail-archive.com/clojure@googlegroups.com/msg17721.html
+Files
+http://www.exampledepot.com/egs/java.io/GetFiles.html
+Namespaces
+http://pacific.mpi-cbg.de/wiki/index.php/Clojure_Scripting#Calling_static_fields_and_methods:_namespace_syntax
+https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md
+Exceptions
+http://stackoverflow.com/questions/3835331/custom-exceptions-in-clojure
+http://devender.wordpress.com/2010/06/13/redis-and-clojure/
+HTML File input
+http://www.cs.tut.fi/~jkorpela/forms/file.html#basics
+Persistence
+https://devender.wordpress.com/2010/06/13/redis-and-clojure/
+Installing Clojure
+https://devender.wordpress.com/2010/06/13/redis-and-clojure/
+Unit Testing
+http://www.lshift.net/blog/2010/02/27/a-simple-web-application-in-clojure-using-ring-and-enlive
+Leiningen
+http://blog.8thlight.com/colin-jones/2010/11/26/a-leiningen-tutorial.html
+Sessions
+http://blog.experimentalworks.net/2010/02/dealing-with-sessions-in-compojure/
+Persistence
+http://redis.io
+Cloud Foundry
+https://github.com/SpringSource/cloudfoundry-samples/wiki/Cloud-foundry-environment-variables
+If-let
+http://blog.jayfields.com/2011/03/clojure-if-let-and-when-let.html
+EXCELLENT Ring tutorial
+http://mmcgrana.github.com/2010/07/develop-deploy-clojure-web-applications.html
+Clojure in web production usage
+http://www.quora.com/Whos-using-Clojure-in-production
+Sandbar tutorial (huge)
+http://formpluslogic.blogspot.com/2010/08/securing-web-applications-with-sandbar.html
+Good clojure tutorial
+http://devblog.factual.com/thinking-in-clojure-for-java-programmers-part-1-%E2%80%94-a-gentle-intro
+Re-gsub and optimization info
+http://travis-whitton.blogspot.com/
+Enlive tutorial
+https://github.com/swannodette/enlive-tutorial
+Clojure debug-repl macro
+http://www.codingtiger.com/questions/debugging/Debugging-in-Clojure-.html
+SHA Hashing in Java
+http://www.mkyong.com/java/java-sha-hashing-example/
+Sanitizing web input
+http://www.devshed.com/c/a/PHP/Sanitizing-Input-with-PHP/1/
+Inline js backlinks
+http://www.weethet.nl/english/html_pagebacklink.php
+Enlive low level tutorial
+https://github.com/cgrand/enlive/wiki/Table-and-Layout-Tutorial%2C-Part-3%3A-Simple-Transformations
+Git & scp
+https://iofthestorm.wordpress.com/2009/04/05/how-to-use-git-over-scp-without-git-on-the-remote-server/
+http://blog.flameeyes.eu/2007/02/14/how-to-use-git-via-sftp-only

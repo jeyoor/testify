@@ -1,0 +1,1 @@
+SET PATH=F:\PortableApps\lein;C:\Program Files (x86)\Java\jdk1.7.0\bin;%PATH%

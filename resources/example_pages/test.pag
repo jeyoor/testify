@@ -1,0 +1,1 @@
+#=(clojure.lang.PersistentArrayMap/create {:gender "male", :likes "church", :testimony "GOD IS AWESOME", :name "Jeyan D. Oorjitham", :template "basic.tmp"})

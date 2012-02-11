@@ -1,0 +1,4 @@
+redis-clojure imple notes
+protocols (interfaces)
+    1. RedisConnection --> Implemented by defrecord Connection
+    2. RedisConnectionPool --> implemented by NonPooledConnectionPool

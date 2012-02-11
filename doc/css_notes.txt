@@ -1,0 +1,23 @@
+CSS notes
+//
+<div class="col" id="left"> .. </div>
+/*
+This accesses the div with the left id
+*/
+div#left
+    {
+    thing: val;
+    }
+/*
+This accesses all divs with class col
+*/
+div.col
+    {
+    
+    }
+div#main div.column:nth-child(1),
+div#main div.column:nth-child(3)
+    {
+    
+    }
+From the div id'd main, find 1 and 3 child div with class column.

@@ -1,0 +1,7 @@
+Three functions of sandbar
+
+1. stateful sessions
+
+2. easy forms
+
+3. uber authentication

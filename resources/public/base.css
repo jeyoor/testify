@@ -1,0 +1,13 @@
+div#header {
+    background: #DDDDDD;
+    width: 100%;
+    height: 100px;
+}
+
+div#content {
+    background: #AAAADD;
+    width: 100%;
+    margin-top: 10px;
+    height: 300px;
+}
+

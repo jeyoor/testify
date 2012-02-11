@@ -1,0 +1,24 @@
+(ns testify.core
+    (:use compojure.core)
+    (:require 
+        [compojure.route :as route]
+        [compojure.handler :as handler]
+        )
+
+)
+
+(defn dirlinks []
+    (.. System (getProperties) (get "os.name"))
+)
+(defn sayhi [] "Hello!")
+
+
+(defroutes main-routes
+   ;match main
+  (GET "/" [] (dirlinks) )
+  (GET "/admin" [] (sayhi) )
+  (route/resources "/")
+  (route/not-found "Page not found"))
+
+(def app
+  (handler/site main-routes))
