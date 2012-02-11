@@ -10,7 +10,7 @@
 )
 
 
-(deftemplate base "testify/base.html"
+(deftemplate base "testify/templates/base.html"
     [pagetitle content]
     ;if a header is passed in, give substi fun
     ;otherwise, give identity fun (leave html unchng)
@@ -21,7 +21,7 @@
 
 )
 
-(deftemplate link-base "testify/base.html"
+(deftemplate link-base "testify/templates/base.html"
     [pagetitle linkname linkref content]
     ;if a header is passed in, give substi fun
     ;otherwise, give identity fun (leave html unchng)
@@ -35,13 +35,13 @@
 
 
 )
-(defsnippet message "testify/base.html"
+(defsnippet message "testify/templates/base.html"
     [:span.message]
     [message]
     ;TODO: make this more expressive?
     [:span.message] (maybe-content message)
 )
-(defsnippet input "testify/user_input.html"
+(defsnippet input "testify/templates/user_input.html"
     [:input.field]
     [type name classy value]
     [:input.field]  (do->
@@ -52,7 +52,7 @@
                     )
 )
 
-(defsnippet ul-link "testify/user_list.html"
+(defsnippet ul-link "testify/templates/user_list.html"
     ;grab the whole unordered list
      [:ul.mainlist]
     ;take link name and ref as params
@@ -66,7 +66,7 @@
         )
 )
 
-(defsnippet ul-link-delete "testify/admin_list.html"
+(defsnippet ul-link-delete "testify/templates/admin_list.html"
     ;grab the whole unordered list
      [:ul.mainlist]
     ;take link name and ref as params
@@ -85,7 +85,7 @@
         )
 )
 
-(defsnippet form "testify/user_input.html"
+(defsnippet form "testify/templates/user_input.html"
     [:form]
     [method action content]
     [:form] (do->
@@ -94,7 +94,7 @@
             )
 )
 
-(defsnippet save-form "testify/user_input.html"
+(defsnippet save-form "testify/templates/user_input.html"
     [:form]
     [method action content]
     [:form] (do->
@@ -105,7 +105,7 @@
 )
 
 ;page form has a hidden field for the template name
-(defsnippet page-form "testify/user_input.html"
+(defsnippet page-form "testify/templates/user_input.html"
     [:form]
     [method action template content]
     [:form] (do->
@@ -119,7 +119,7 @@
 
 
 
-(defsnippet input-row "testify/user_input.html"
+(defsnippet input-row "testify/templates/user_input.html"
     ;take the typeclass and the name, plug in into an inputrow
     ;TODO Have typing pick which field (textarea or which input) we pull
     ;TODO Give ajaxified validation based on typeclass to the user
