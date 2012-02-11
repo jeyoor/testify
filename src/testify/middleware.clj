@@ -6,22 +6,26 @@
     (:require [clj-stacktrace.repl :as strp])
 )
 
+;Print an error message to stderr
 (defn- erlog [msg & vals]
     (let [line (apply format msg vals)]
         (locking System/err (println line))
     )
 )
 
+;Print a message to stdout
 (defn- applog [msg & vals]
     (let [line (apply format msg vals)]
         (locking System/out (println line))
     )
 )
 
+;True if we're in dev environment; false otherwise
 (defn development? []
     (nil? (. System getenv "VMC_APP_NAME"))
 )
 
+;try-catch with exceptions logged
 (defn wrap-errorlog [handler]
     (fn [req]
         (try
