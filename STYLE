@@ -1,0 +1,18 @@
+Prettification notes
+
+Guidelines
+    1. Indent new levels by two spaces 
+    2. All closing parens along the same line
+    3. Opening parens and the matching symbol along the same line
+    4. Indent the continuation of levels beneath the level they match
+
+To prettify a file in emacs:
+Install and use ElispFormat
+http://www.emacswiki.org/emacs/ElispFormat#toc4
+
+To prettify a file in vim:
+
+
+
+
+

@@ -1,6 +1,5 @@
 (ns testify.html-macros
-    (:use net.cgrand.enlive-html)
-)
+  (:use net.cgrand.enlive-html))
 
 
 ;courtesy of enlive-tutorial (David Nolan)
@@ -38,18 +37,15 @@
 
 (defmacro maybe-appear
   ([expr] `(if-let [x# ~expr] (content x#) nil))
-  ([expr & exprs] `(maybe-appear (or ~expr ~@exprs)))
-)
+  ([expr & exprs] `(maybe-appear (or ~expr ~@exprs))))
 
 (defmacro maybe-prepend
   ([expr] `(if-let [x# ~expr] (prepend x#) nil))
-  ([expr & exprs] `(maybe-prepend (or ~expr ~@exprs)))
-)
+  ([expr & exprs] `(maybe-prepend (or ~expr ~@exprs))))
 
 ;new macro, replaces content of nodes with id "blah"
 ;make it good for reduce! :-)
 (defmacro content-by-id [nodes [id content]]
-    `(at ~nodes
-        ~(read-string (str "[:#" id "]")) (maybe-content content)
-    )
-)
+  `(at ~nodes
+       ~(read-string (str "[:#" id "]")) (maybe-content content)))
+

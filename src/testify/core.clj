@@ -1,17 +1,12 @@
 (ns testify.core
     (:use
-        ring.adapter.jetty
-    )
+        ring.adapter.jetty)
     (:require
         [testify.debug :as debug]
-        [testify.routes :as routes]
+        [testify.routes :as routes]))
 
-
-    )
-)
-
-(defn -main []
-  (let [port (System/getenv "PORT")]
-    (if port  (run-jetty routes/app {:port (Integer/parseInt port)})
-     (run-jetty routes/app {:port 8000}))
-    ))
+(defn -main [] 
+  (let [port (System/getenv "PORT")] 
+    (if port  
+      (run-jetty routes/app {:port (Integer/parseInt port)}) 
+      (run-jetty routes/app {:port 8000}))))
