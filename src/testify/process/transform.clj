@@ -11,7 +11,7 @@
       (partition 3 (reverse savelist))
       (if (even? number)         
          (recur (+ number 1) (cons (first worklist) savelist) (rest worklist))
-         (recur (+ number 1) (list*  (re-find #"\s+.*" (first worklist))(re-find #"\w* " (first worklist)) savelist) (rest worklist)))))) 
+         (recur (+ number 1) (list*  (re-find #"(?s)\s+.*" (first worklist))(re-find #"\w* " (first worklist)) savelist) (rest worklist))))))  
 ;TODO: more idiomatic here?
 (defn accum-alternates
   "iterate over a list, saving second, fourth, etc items"
@@ -40,18 +40,23 @@
   "take one user-script transformation statement and apply it to the given HTML nodes"
   [nodes transform]
   `(let [selector# (first ~transform)
-        funame# (second ~transform) 
-        args# (nth ~transform 2)]
-    (html/transform ~nodes [(keyword selector#)] ((load-string (str "html/" funame#)) args#))))
+         funame# (second ~transform) 
+         args# (nth ~transform 2)]
+     ;TODO: check and transform args based on function used
+     (cond
+      (.contains funame# "content")(html/transform ~nodes [(keyword selector#)] ((load-string (str "html/" funame#))(html/html-snippet args#)))  
+      :else (html/transform ~nodes [(keyword selector#)] ((load-string (str "html/" funame#)) args#)))))
 
 
 (defn make-transform
   "apply user transformation script to some html nodes" 
   [nodes #^java.lang.String script]
-  (let [transes (parse-transforms script)]
-    (reduce single-transform nodes transes)))
-    ;(println  (second trans))))
+  (loop [transes (parse-transforms script) nde nodes] 
+    (if (empty? transes) nde
+        (recur (rest transes) (single-transform nodes (first transes))))))
+    ;(println  (second trans)))))
+
 (defn file-transform
   "apply a user transformation from the specified transform file to the the specified HTML file"
   [#^java.lang.String html #^java.lang.String transform ]
-  (make-transform (html/html-snippet (slurp html)) (slurp transform)))
+  (spit "/tmp/test.html" (html/emit*  (apply str  (make-transform (html/html-snippet (slurp html)) (slurp transform))))))
