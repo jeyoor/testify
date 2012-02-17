@@ -1,0 +1,41 @@
+Templates work like this:
+
+template code:
+
+Here's a user template:
+
+  <p id="name" class="text">Doreen</p><img src="staticimage.gif" />
+
+Here's a user script that uses the above template:
+
+  [#name] (content bob)
+
+After substitution, the HTML looks like this:
+
+  <p id=name class=text>bob </p> <img src="staticimage.gif" />
+
+A user script consists of a series of transformation declarations. Each
+such declaration begins with a css selector, within square brackets
+"[]", which selects elements of the template to which a transformation
+should be applied. next is a transformation function and its arguments,
+enclosed within parentheses "()".
+
+The transformation function specifies what type of transformation to
+apply to the selected nodes. For example the content function replaces
+the contents (or, in DOM terminology, the inner HTML) of each node.
+There is a similar function named append, and another one named prepend.
+
+The transformation arguments to the function depend on the function that
+is chosen, but generally is the HTML markup that should be applied to
+the selected nodes.
+
+Each time a page is requested, the user script for that page is applied
+to that page's template, the results of which is then applied to the
+base template via a predefined transformation script. This script can
+only be modified by someone who has direct access to the web server,
+which shields the web site from abusive or malicious misuse of the
+templating system.
+
+The paradigm of applying transformations to a set of predefined
+templates is very powerful. In fact, every web page in the Testify
+interface is designed using this paradigm!
