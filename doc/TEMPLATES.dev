@@ -1,0 +1,62 @@
+The templating feature, as it now stands, is incomplete. For one, why
+should our internal app have special privileges? Or be able to have a
+3-tiered heirarchy while "regular" apps can only model the intermediate
+template with no way to affect the base template?
+
+To think about this problem, I'm going to present an algebra, using a
+couple of operators in its syntax:
+
+  -> transform: an operator that applies an arbitrary script to a
+template. The left-hand operand is a script, and the right-hand
+operation is a template. left-associative.
+
+  :> merge: an operator that applies a predetermined transformation to
+combine an arbitrary template (left-hand) with a base template
+(right-hand). This operation is determined either by the Testify
+framework, or by the sysadmin of the installation. left-associative.
+
+Here is how our code currently works for user pages:
+
+  script -> template :> base_template
+
+And here is how it works for internal pages:
+
+  script -> (template :> base_template)
+
+As you can see, internal scripts can manipulate the base template, while
+user scripts can only manipulate the user template. But this ignores an
+important possibility: that the sysadmin of an installation wishes to
+give users direct control over the base template.
+
+For example, what if the sysadmin wanted to bestow upon users the
+ability to perform transformations on the navigation? With the current
+pipeline, each user template would have to duplicate all of the shared
+navigation code, since that's the only way to allow the script to access
+it.
+
+(Of course, this isn't too bad: each template can specify alternate or
+additional nav content, which we can merge in to the base
+template--provided that we provide some mechanism for specifying how
+this works from within the template and the base template.)
+
+
+Let's look at an alternative pipeline that addresses this issue in a
+different way.
+
+  (user_script -> user_template) :> (admin_script -> admin_template) :> base_template
+
+Or, in this case, a simpler pipeline would also work:
+
+  (user_script -> user_template) :> (admin_script -> base_template)
+
+So now, we've looked at four different pipelines that can be
+implemented, to various effect. This raises an important question? Which
+pipeline should we choose?
+
+For the time being, our current model is acceptable. (There are more
+pressing issues to engage us.) However, looking toward the future, why
+shouldn't we implement them all? And more contrived pipelines than any
+of these?
+
+Can we provide generic support for defining pipelines of transformations
+and merges?

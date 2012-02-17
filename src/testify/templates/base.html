@@ -1,17 +1,70 @@
-<!doctype html>
-<html>
+<!doctype html> <!-- Using Enlive -->
+<html lang="en">
     <head>
-        <link rel="stylesheet" type="text/css" href="/base.css" />
+      <title></title>
+      <link rel="stylesheet" type="text/css" href="/bootstrap.min.css" />
+      <link rel="stylesheet" type="text/css" href="/base.css" />
     </head>
     <body>
-        <div id="header">
+      <div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+	  <div class="container-fluid">
+	    <nav id="topnav" class="nav-collapse">
+	      <ul class="nav">
+		<li><a href="/">Home</a></li>
+	      </ul>
+	    </nav>
+	  </div>
+	</div>
+      </div><!-- end topnav -->
+      <div class="container">
+        <header id="banner" class="row">
+	  <!-- header -->
             <h2> <a href="/">Testify</a> </h2>
             <span id="pagetitle">Page Title</span> <br />
             <a id="biglink" href="/otherplace">Sample link</a>
-        </div>
+        </header>
 
-        <div id="content">
-            <span class="message">Sample message to the user</span>
-        </div>
-        </body>
+	<div class="row">
+	  <div class="span8">
+	    <header id="main" class="row"></header>
+	    <article id="main" class="row">
+	      <!-- article -->
+	    </article>
+	    <footer id="main" class="row"></footer>
+
+	    <header id="alt" class="row"></header>
+	    <article id="alt" class="row">
+	    <footer id="alt" class="row"></footer>
+	      <!-- Alternate content that may be omitted -->
+	      <!-- altalticle -->
+	    </article>
+	  </div>
+
+
+	  <!-- A plea to web developers:
+
+	  Please let your content load before your side-bar navigation!
+	  Please make it short and sweet, and put it on the RIGHT: at the
+	  end of reading-order. That's right: nav isn't the star of your
+	  site: content is!
+	  -->
+	  <nav id="sidenav" class="span2 offset1 nav-list">
+	    <ul class="nav">
+	      <!-- sidenav -->
+	    </ul>
+	  </nav>
+      </div><!-- end row -->
+
+      <!-- debug --><!-- If/when we enable the debug template, it goes here -->
+
+      <footer id="footer" class="row">
+	<hr>
+	<!-- footer -->
+      </footer>
+      <footer id="legal" class="row">
+	<!-- legal -->
+      </footer>
+    </div><!-- end container -->
+  </body>
 </html>
