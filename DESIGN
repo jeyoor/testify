@@ -94,6 +94,10 @@ Code
         From lookup all map, create partitioned list for appear
 
     Appear
+        Using a singular system (enlive for everything)
+              user pages are dynamically substituted into the user template
+              then the resulting code is substituted into overall template
+              the overall template goes through several basic iterations
         
             
 HTML Template
