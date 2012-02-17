@@ -1,7 +1,10 @@
 (ns testify.process.transform
   (:require
+   [clojure.set :as set]
    [clojure.contrib.string :as string]
    [net.cgrand.enlive-html :as html]))
+
+;;;;Parsing functions
 
 (defn split-names
   "for every"
@@ -13,7 +16,7 @@
          (recur (+ number 1) (cons (first worklist) savelist) (rest worklist))
          (recur (+ number 1) (list*  (re-find #"(?s)\s+.*" (first worklist))(re-find #"\w* " (first worklist)) savelist) (rest worklist)))))) 
 
-;TODO: more idiomatic here?
+;;TODO: more idiomatic here?
 (defn accum-alternates
   "iterate over a list, saving second, fourth, etc items"
   [list]
@@ -27,26 +30,58 @@
 (defn parse-transforms
   "take a string of user transforms, return a list of args to the at macro" 
   [str]
-  ;ignore the odd entries
-  ;split on [,],(, and ) 
+  ;;ignore the odd entries
+  ;;split on [,],(, and ) 
   (split-names (accum-alternates (string/split #"[\[|\(|\]|\)]" str))))
 
-;for learning/posterity 
+;;;;Transformation primitives
+
+;;for learning/posterity (not used in rest of file)
 (defmacro str-to-sym
   "call the function with the name of the given string"
   [name args]
   `(apply (load-string ~name) (list ~args)))
 
+(defn need-nodes?
+  "Check enlive fun name for needed args-to-nodes conversion."
+  [name]
+  ;;funs that require conversion from text args to HTML nodes
+  (let [conv-funs #{"append" "prepend" "before" "after" "substitute"}]
+    (set/subset? #{(string/trim name)} conv-funs)))
+
+(defn process-selector
+  "Process a string to a proper enlive selector"
+  [str]
+  ;;Make every "word" a keyword
+  ;;TODO: account for advanced tricks like text-node
+  (map keyword (string/split #"\s" str)))
+
+(defmacro process-call
+  "Take a function name string and an argument string and return the proper enlive helper function" 
+  [funstr argstr]
+  ;TODO: Code this instead of the hornet's nest below :-)
+  `(let [funame# ~funstr
+         args# ~argstr]))
+
 (defmacro single-transform
   "take one user-script transformation statement and apply it to the given HTML nodes"
   [nodes transform]
-  `(let [selector# (first ~transform)
+  `(let [selector# (process-selector (first ~transform))
          funame# (second ~transform) 
          args# (nth ~transform 2)]
-     ;TODO: check and transform args based on function used
+     ;;TODO: check and transform args based on function used
      (cond
-      (or (.contains funame# "content") (.contains funame# "append")) (html/transform ~nodes [(keyword selector#)] ((load-string (str "html/" funame#))(html/html-snippet args#)))
-      :else (html/transform ~nodes [(keyword selector#)] ((load-string (str "html/" funame#)) args#)))))
+      ;;check for content, append, prepend, 
+      (need-nodes? funame#)
+      (html/transform
+       ~nodes [(keyword selector#)]
+       ((load-string (str "html/" funame#))(html/html-snippet args#)))
+      :else
+      (html/transform
+       ~nodes [(keyword selector#)]
+       ((load-string (str "html/" funame#)) args#)))))
+
+;;;;Transformation operations
 
 (defn make-transform
   "apply user transformation script to some html nodes" 
@@ -63,4 +98,4 @@
 
 (defn test-transform
   [#^java.lang.String html #^java.lang.String transform ]
-  (apply str  (html/emit*  (make-transform (html/html-snippet (slurp html)) (slurp transform)))))
+   (make-transform (html/html-snippet (slurp html)) (slurp transform)))
