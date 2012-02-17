@@ -11,7 +11,8 @@
       (partition 3 (reverse savelist))
       (if (even? number)         
          (recur (+ number 1) (cons (first worklist) savelist) (rest worklist))
-         (recur (+ number 1) (list*  (re-find #"(?s)\s+.*" (first worklist))(re-find #"\w* " (first worklist)) savelist) (rest worklist))))))  
+         (recur (+ number 1) (list*  (re-find #"(?s)\s+.*" (first worklist))(re-find #"\w* " (first worklist)) savelist) (rest worklist)))))) 
+
 ;TODO: more idiomatic here?
 (defn accum-alternates
   "iterate over a list, saving second, fourth, etc items"
@@ -44,9 +45,8 @@
          args# (nth ~transform 2)]
      ;TODO: check and transform args based on function used
      (cond
-      (.contains funame# "content")(html/transform ~nodes [(keyword selector#)] ((load-string (str "html/" funame#))(html/html-snippet args#)))  
+      (or (.contains funame# "content") (.contains funame# "append")) (html/transform ~nodes [(keyword selector#)] ((load-string (str "html/" funame#))(html/html-snippet args#)))
       :else (html/transform ~nodes [(keyword selector#)] ((load-string (str "html/" funame#)) args#)))))
-
 
 (defn make-transform
   "apply user transformation script to some html nodes" 
@@ -59,4 +59,8 @@
 (defn file-transform
   "apply a user transformation from the specified transform file to the the specified HTML file"
   [#^java.lang.String html #^java.lang.String transform ]
-  (spit "/tmp/test.html" (html/emit*  (apply str  (make-transform (html/html-snippet (slurp html)) (slurp transform))))))
+  (spit "/tmp/test.html"  (apply str (html/emit* (make-transform (html/html-snippet (slurp html)) (slurp transform))))))
+
+(defn test-transform
+  [#^java.lang.String html #^java.lang.String transform ]
+  (apply str  (html/emit*  (make-transform (html/html-snippet (slurp html)) (slurp transform)))))
