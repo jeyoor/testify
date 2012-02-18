@@ -1,12 +1,16 @@
-# testify
+Introduction
+============
 
 Testify is a web applicaton framework designed for personal storying.
 
-## Installation
+Installation
+============
 
 There are three dependencies of testify: java, redis, and lein
 
-Your Java version needs to be at least 1.5. I bet you can handle that.
+Your Java version needs to be at least 1.5. I bet you can handle that. Note
+that we don't need the JDK: just the JRE is fine. (And if you don't know the
+difference, you're fine ;-)
 
 redis is in your distribution's repository. For Ubuntu, that is
 
@@ -26,10 +30,14 @@ PATH+=':~/bin'
 The first time lein runs, it will gather all of its dependencies, so you don't
 have to. 
 
-## Usage
+Usage
+=====
+
 Run the following command to start the webserver:
 
   $ ./run.sh
+
+This also starts redis-server, if that's not already running.
 
 By default, the website is hosted at http://localhost:8000, but if you need to
 change the port number, use the PORT environment variable. Note that PORT must
@@ -37,7 +45,8 @@ be either a number or unset.
 
   $ PORT=8000 ./run.sh
 
-## License
+License
+=======
 
 Copyright (C) 2012 Jeyan Oorjitham 
 
