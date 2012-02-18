@@ -6,7 +6,9 @@ Testify is a web applicaton framework designed for personal storying.
 
 There are three dependencies of testify: java, redis, and lein
 
-Your Java version needs to be at least 1.5. I bet you can handle that.
+Your Java version needs to be at least 1.5. I bet you can handle that. Note
+that we don't need the JDK: just the JRE is fine. (And if you don't know the
+difference, you're fine ;-)
 
 redis is in your distribution's repository. For Ubuntu, that is
 

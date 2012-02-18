@@ -1,11 +1,10 @@
-(ns testify.process.dyn-html (:use testify.remain 
-                                   testify.appear testify.html-macros) 
-    (:require [redis.core 
-               :as redis] 
-              [net.cgrand.enlive-html 
-               :as html] 
-              [testify.util 
-               :as util]))
+(ns testify.process.dyn-html
+  (:use testify.remain 
+        testify.appear
+        testify.html-macros) 
+  (:require [redis.core :as redis] 
+            [net.cgrand.enlive-html :as html] 
+            [testify.util :as util]))
 
 (defn get-html [id] 
   (do-redis (fetch (str "template:" id ":html"))))
@@ -22,15 +21,11 @@
 (defn get-types
   "for each node in list, destructure to find its type"
   [nodelist] 
-  (map #
-   (let [{{classy :class} :attrs} %] 
-     classy)
+  (map #(let [{{classy :class} :attrs} %] classy)
    nodelist))
 
 (defn get-ids [nodelist] 
-  (map #
-   (let [{{idy :id} :attrs} %] 
-     idy)
+  (map #(let [{{idy :id} :attrs} %] idy)
    nodelist))
 
 (defn map-ids-types [nodelist] 
