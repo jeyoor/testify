@@ -93,18 +93,8 @@ Code
             
         From lookup all map, create partitioned list for appear
 
-    Appear (use enliven?)
-        Give resource
-            From a URL, return a resource
-        Enlive templates
-            Basic
-                Include add page
-                (Include gallery?)
-                Include backlinks
-        Generate  (from a [lazy?] seq)
-            message
-            form
-            listing (with appropriate links)
+    Appear
+        
             
 HTML Template
     Basic header
