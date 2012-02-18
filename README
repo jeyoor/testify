@@ -33,6 +33,8 @@ Run the following command to start the webserver:
 
   $ ./run.sh
 
+This also starts redis-server, if that's not already running.
+
 By default, the website is hosted at http://localhost:8000, but if you need to
 change the port number, use the PORT environment variable. Note that PORT must
 be either a number or unset.
