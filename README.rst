@@ -1,8 +1,10 @@
-# testify
+Introduction
+============
 
 Testify is a web applicaton framework designed for personal storying.
 
-## Installation
+Installation
+============
 
 There are three dependencies of testify: java, redis, and lein
 
@@ -28,7 +30,9 @@ PATH+=':~/bin'
 The first time lein runs, it will gather all of its dependencies, so you don't
 have to. 
 
-## Usage
+Usage
+=====
+
 Run the following command to start the webserver:
 
   $ ./run.sh
@@ -41,7 +45,8 @@ be either a number or unset.
 
   $ PORT=8000 ./run.sh
 
-## License
+License
+=======
 
 Copyright (C) 2012 Jeyan Oorjitham 
 
