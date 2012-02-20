@@ -1,0 +1,7 @@
+Current issues:
+    nav not being replaced
+    content not being replaced
+            Because, in part, keywords are not applied to all first args?
+
+Status:
+    Need to apply the keyword function to arglist
