@@ -27,7 +27,7 @@
          (recur (+ number 1) savelist (rest worklist))
          (recur (+ number 1) (cons (first worklist) savelist) (rest worklist))))))
     
-(defn parse-transforms
+(defn lexify-transforms
   "take a string of user transforms, return a list of args to the at macro" 
   [str]
   ;;ignore the odd entries
@@ -46,7 +46,7 @@
   "Check enlive fun name for needed args-to-nodes conversion."
   [name]
   ;;funs that require conversion from text args to HTML nodes
-  (let [conv-funs #{"append" "prepend" "before" "after" "substitute"}]
+  (let [conv-funs #{"append" "prepend" "before" "after" "substitute" "content"}]
     (set/subset? #{(string/trim name)} conv-funs)))
 
 (defn process-selector
@@ -63,22 +63,27 @@
   `(let [funame# ~funstr
          args# ~argstr]))
 
+(defn process-fname
+  "Take a function name string and return the appropriate Clojure symbol"
+  [fname]
+  (load-string (str "html/" (.trim fname))))
+
 (defmacro single-transform
   "take one user-script transformation statement and apply it to the given HTML nodes"
   [nodes transform]
   `(let [selector# (process-selector (first ~transform))
-         funame# (second ~transform) 
+         funame# (process-fname (second ~transform))
          args# (nth ~transform 2)]
      ;;TODO: check and transform args based on function used
      (cond
       ;;check for content, append, prepend, 
       (need-nodes? funame#)
       (html/transform
-       ~nodes [(keyword selector#)]
+       ~nodes (vec selector#)
        ((load-string (str "html/" funame#))(html/html-snippet args#)))
       :else
       (html/transform
-       ~nodes [(keyword selector#)]
+       ~nodes (vec selector#)
        ((load-string (str "html/" funame#)) args#)))))
 
 ;;;;Transformation operations
@@ -86,7 +91,7 @@
 (defn make-transform
   "apply user transformation script to some html nodes" 
   [nodes #^java.lang.String script]
-  (loop [transes (parse-transforms script) nde nodes] 
+  (loop [transes (lexify-transforms script) nde nodes] 
     (if (empty? transes) nde
         (recur (rest transes) (single-transform nodes (first transes))))))
     ;(println  (second trans)))))
@@ -96,6 +101,13 @@
   [#^java.lang.String html #^java.lang.String transform ]
   (spit "/tmp/test.html"  (apply str (html/emit* (make-transform (html/html-snippet (slurp html)) (slurp transform))))))
 
+;;;;Testing/debugging
+
 (defn test-transform
   [#^java.lang.String html #^java.lang.String transform ]
    (make-transform (html/html-snippet (slurp html)) (slurp transform)))
+
+(defn test-lex
+  "test the lexical analysis"
+  [#^java.lang.String transform]
+  (lexify-transforms (slurp transform)))
