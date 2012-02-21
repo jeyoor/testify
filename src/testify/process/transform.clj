@@ -95,7 +95,6 @@
   (loop [transes (lexify-transforms script) nde nodes] 
     (if (empty? transes) nde
         (recur (rest transes) (single-transform nodes (first transes))))))
-    ;(println  (second trans)))))
 
 (defn file-transform
   "apply a user transformation from the specified transform file to the the specified HTML file"
