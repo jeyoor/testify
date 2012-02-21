@@ -72,7 +72,8 @@
   "take one user-script transformation statement and apply it to the given HTML nodes"
   [nodes transform]
   `(let [selector# (process-selector (first ~transform))
-         funame# (process-fname (second ~transform))
+         funame# (second ~transform)
+         fusym# (process-fname (second ~transform))
          args# (nth ~transform 2)]
      ;;TODO: check and transform args based on function used
      (cond
@@ -80,11 +81,11 @@
       (need-nodes? funame#)
       (html/transform
        ~nodes (vec selector#)
-       ((load-string (str "html/" funame#))(html/html-snippet args#)))
+       (fusym# (html/html-snippet args#)))
       :else
       (html/transform
        ~nodes (vec selector#)
-       ((load-string (str "html/" funame#)) args#)))))
+       (fusym# args#)))))
 
 ;;;;Transformation operations
 
