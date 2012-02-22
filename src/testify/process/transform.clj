@@ -2,7 +2,8 @@
   (:require
    [clojure.set :as set]
    [clojure.contrib.string :as string]
-   [net.cgrand.enlive-html :as html]))
+   [net.cgrand.enlive-html :as html]
+   [testify.process.fileops :as fileops]))
 
 ;;;;Parsing functions
 
@@ -95,10 +96,10 @@
   (let [transes (lexify-transforms script)]
     (reduce single-transform nodes transes)))
 
-(defn file-transform
+(defn bulk-transform
   "apply a user transformation from the specified transform file to the the specified HTML file"
   [#^java.lang.String html #^java.lang.String transform ]
-  (spit "/tmp/test.html"  (apply str (html/emit* (make-transform (html/html-snippet (slurp html)) (slurp transform))))))
+  (apply str (html/emit* (make-transform (html/html-snippet (slurp html)) (slurp transform)))))
 
 ;;;;Testing/debugging
 

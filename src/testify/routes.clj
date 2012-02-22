@@ -20,7 +20,7 @@
 
 (defroutes page-routes
     ;Redirect to something useful
-    ;(GET "/" [] )
+    ;(GET "/" [page/home-page] )
     (GET "/form" [tname] (page/form-page tname))
     (GET "/view" [pname] (page/view-page pname))
     (POST "/save" [save PageName template & savedata] (page/save-page PageName template savedata))

@@ -3,6 +3,7 @@
         testify.remain
         testify.appear
         testify.process
+        testify.process.transform
     )
     (:require
       [net.cgrand.enlive-html :as html]
@@ -17,9 +18,10 @@
     []
                    ;get ids from full keynames
     (let [pagelist (map id (dump "page" "token"))]
-                        ;use the ids to populate a linklist
-            (link-base nil  "Add Page?" "/template" (linknodes pagelist "/page/view?pname="))
-    ))
+      ;;use the ids to populate a linklist
+      ;;TODO: switch this to use template context
+      ;;(link-base nil  "Add Page?" "/template" (linknodes pagelist "/page/view?pname="))
+      (bulk-transform "../templates/base.html" "../templates/main.tr")))
 
 
 (defn form-page [template]
