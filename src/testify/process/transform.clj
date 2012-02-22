@@ -68,33 +68,32 @@
   [fname]
   (load-string (str "html/" (.trim fname))))
 
-(defmacro single-transform
+(defn single-transform
   "take one user-script transformation statement and apply it to the given HTML nodes"
   [nodes transform]
-  `(let [selector# (process-selector (first ~transform))
-         funame# (second ~transform)
-         fusym# (process-fname (second ~transform))
-         args# (nth ~transform 2)]
+  (let [selector (process-selector (first transform))
+         funame (second transform)
+         fusym (process-fname (second transform))
+         args (nth transform 2)]
      ;;TODO: check and transform args based on function used
      (cond
       ;;check for content, append, prepend, 
-      (need-nodes? funame#)
+      (need-nodes? funame)
       (html/transform
-       ~nodes (vec selector#)
-       (fusym# (html/html-snippet args#)))
+       nodes (vec selector)
+       (fusym (html/html-snippet args)))
       :else
       (html/transform
-       ~nodes (vec selector#)
-       (fusym# args#)))))
+       nodes (vec selector)
+       (fusym args)))))
 
 ;;;;Transformation operations
 
 (defn make-transform
   "apply user transformation script to some html nodes" 
   [nodes #^java.lang.String script]
-  (loop [transes (lexify-transforms script) nde nodes] 
-    (if (empty? transes) nde
-        (recur (rest transes) (single-transform nodes (first transes))))))
+  (let [transes (lexify-transforms script)]
+    (reduce single-transform nodes transes)))
 
 (defn file-transform
   "apply a user transformation from the specified transform file to the the specified HTML file"
