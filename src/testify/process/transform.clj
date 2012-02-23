@@ -67,7 +67,7 @@
 (defn process-fname
   "Take a function name string and return the appropriate Clojure symbol"
   [fname]
-  (load-string (str "html/" (.trim fname))))
+  (load-string (str "net.cgrand.enlive-html/" (.trim fname))))
 
 (defn single-transform
   "take one user-script transformation statement and apply it to the given HTML nodes"
@@ -99,7 +99,10 @@
 (defn bulk-transform
   "apply a user transformation from the specified transform file to the the specified HTML file"
   [#^java.lang.String html #^java.lang.String transform ]
-  (apply str (html/emit* (make-transform (html/html-snippet (slurp html)) (slurp transform)))))
+  (apply str (html/emit* (make-transform (html/html-snippet (slurp (fileops/find-template html))) (slurp (fileops/find-template transform))))))
+
+;;TODO: code generic bulk and specific file or redis string retrieval
+
 
 ;;;;Testing/debugging
 

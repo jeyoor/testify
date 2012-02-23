@@ -11,5 +11,5 @@
         [org.clojars.tavisrudd/redis-clojure "1.3.1-SNAPSHOT"]
         ]
   :dev-dependencies [[lein-ring "0.4.5"]]
-  :ring {:handler testify.core/app}
+  :ring {:handler testify.routes/app}
  )

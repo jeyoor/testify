@@ -5,6 +5,8 @@
         [testify.debug :as debug]
         [testify.routes :as routes]))
 
+;;This main is used from a Java environment (lein run)
+;;lein-ring's main is specified in project.clj
 (defn -main [] 
   (let [port (System/getenv "PORT")] 
     (if port  

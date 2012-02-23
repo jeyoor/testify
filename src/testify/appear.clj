@@ -5,7 +5,7 @@
   (:require [clojure.string :as string]))
 
 
-(deftemplate base "testify/templates/base.html" [pagetitle content] 
+(deftemplate base "../resources/templates/base.html" [pagetitle content] 
   ;if a header is passed in, give substi fun
   ;otherwise, give identity fun (leave html unchng)
   [:div#header :span#pagetitle] (maybe-appear pagetitle)
@@ -14,7 +14,7 @@
   [:div#content] (maybe-content content))
 
 
-(deftemplate link-base "testify/templates/base.html"
+(deftemplate link-base "../resources/templates/base.html"
   [pagetitle linkname linkref content]
   ;if a header is passed in, give substi fun
   ;otherwise , give identity fun (leave html unchng)
@@ -24,12 +24,12 @@
         (maybe-href linkref)) 
   [:div#content] (maybe-content content))
 
-(defsnippet message "testify/templates/base.html" [:span.message]
+(defsnippet message "../resources/templates/base.html" [:span.message]
   [message]
   ;TODO: make this more expressive?
   [:span.message] (maybe-content message))
 
-(defsnippet input "testify/templates/user_input.html" [:input.field]
+(defsnippet input "../resources/templates/user_input.html" [:input.field]
   [type name classy value]
   [:input.field]  
   (do-> (maybe-type type) 
@@ -37,7 +37,7 @@
         (maybe-name name) 
         (maybe-value value)))
 
-(defsnippet ul-link "testify/templates/user_list.html"
+(defsnippet ul-link "../resources/templates/user_list.html"
   ;grab the whole unordered list
   [:ul.mainlist]
   ;take link name and ref as params
@@ -48,7 +48,7 @@
   (do-> (content linkname) 
         (set-attr :href linkref)))
 
-(defsnippet ul-link-delete "testify/templates/admin_list.html"
+(defsnippet ul-link-delete "../resources/templates/admin_list.html"
   ;grab the whole unordered list
   [:ul.mainlist]
   ;take link name and ref as params
@@ -62,14 +62,14 @@
   (do-> (maybe-name postname) 
         (maybe-value postval)))
 
-(defsnippet form "testify/templates/user_input.html" [:form]
+(defsnippet form "../resources/templates/user_input.html" [:form]
   [method action content] 
   [:form] 
   (do-> (set-attr :action action 
                   :method method) 
         (maybe-content content)))
 
-(defsnippet save-form "testify/templates/user_input.html" [:form]
+(defsnippet save-form "../resources/templates/user_input.html" [:form]
   [method action content] 
   [:form] 
   (do-> (set-attr :action action 
@@ -78,7 +78,7 @@
         (append (input "submit" "save" "saver" "Save Page"))))
 
 ;page form has a hidden field for the template name
-(defsnippet page-form "testify/templates/user_input.html" [:form]
+(defsnippet page-form "../resources/templates/user_input.html" [:form]
   [method action template content] 
   [:form] 
   (do-> (set-attr :action action 
@@ -87,7 +87,7 @@
         (prepend (input "hidden" "template" "passer" template)) 
         (append (input "submit" "save" "saver" "Save Page"))))
 
-(defsnippet input-row "testify/templates/user_input.html"
+(defsnippet input-row "../resources/templates/user_input.html"
  ;take the typeclass and the name, plug in into an inputrow
  ;TODO Have typing pick which field (textarea or which input) we pull
  ;TODO Give ajaxified validation based on typeclass to the user

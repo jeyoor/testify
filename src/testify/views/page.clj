@@ -21,7 +21,7 @@
       ;;use the ids to populate a linklist
       ;;TODO: switch this to use template context
       ;;(link-base nil  "Add Page?" "/template" (linknodes pagelist "/page/view?pname="))
-      (bulk-transform "../templates/base.html" "../templates/main.tr")))
+      (bulk-transform "base.html" "main.tr")))
 
 
 (defn form-page [template]
