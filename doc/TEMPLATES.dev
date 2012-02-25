@@ -60,3 +60,28 @@ of these?
 
 Can we provide generic support for defining pipelines of transformations
 and merges?
+
+--- JDO 27 Feb 2012
+
+The skeleton for a new template processor is in place. 
+
+This new processor should allow new pipelines such as those above to be constructed with less work.
+
+The template processing engine operates on a template in several steps.
+
+1. Replace special characters to prepare for passing to read-string
+    A. Escape literal double-quotes with backslash
+    B. Convert backquotes to double-quotes
+2. Use read-string on the template (converts text to Clojure data structures)
+3. Iterate over the data structures and apply the transformations to the HTML template
+    A. Analyze the current transformation
+        a. Place the transformation in the correct namespace 
+        b. Add calls to html-snippet to convert html text into html nodes
+    B. Apply the transformation using eval
+
+Once more features are added to the "user-space" namespace, the templating language should be ready for basic work. 
+
+These features include:
+1. Control structures (branch/iteration)
+2. Redis fetching
+3. Access to the user's HTTP request map

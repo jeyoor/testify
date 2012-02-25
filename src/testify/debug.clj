@@ -3,8 +3,13 @@
         [redis.core :as redis]
         [testify.appear :as appear]
         [testify.persist :as persist]
+        [testify.process.transform :as transform]
         [clojure.string :as string]
         [net.cgrand.enlive-html :as html]))
+
+(defn testout
+  []
+  (transform/bulk-transform "base.html" "test.tr")) 
 
 (defn echo [params] 
   (str "<h1> hello </h1>" params "<br />" (get  params 

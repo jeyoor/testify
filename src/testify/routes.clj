@@ -52,6 +52,7 @@
 
     ;misc
     (GET "/on_dev" [] (str (middleware/development?)))
+    (GET "/test" [] (debug/testout))
     (GET "/template" [] (template/list-template))
     (GET "/" [] (page/list-page) )
     (route/resources "/")

@@ -1,17 +1,17 @@
-[title](content Testify Web App)
-[nav#topnav ul] (append 
-<li><a href="/">Pages</a></li>
+~title~ (content `Testify Web App`)
+~nav#topnav ul~ (append
+`<li><a href="/">Pages</a></li>
   <li><a href="/admin">Admin</a></li>
-  <li><a href="/dashboard">Dashboard</li>
+  <li><a href="/dashboard">Dashboard</li>`
 )
 
-[nav#sidenav] (append 
+~nav#sidenav~ (append  `
   <li><a href="/next">Next Page</a></li>
   <li><a href="/prev">Previous Page</a></li>
-  <li><a href="/page/form">Add a page</a></li>
+  <li><a href="/page/form">Add a page</a></li>`
 )
 
-[header#banner] (content <div style="height: px; background-color: olive; margin: auto;"><h1>Ad Banner</h1></div>)
+~header#banner~ (content `<div style="height: px; background-color: olive; margin: auto;"><h1>Ad Banner</h1></div>`)
 
-[footer#legal] 
-   (content <p>Copyright &copy; 2012 the Testify Development Team</p>)
+[footer#legal]
+   (content `<p>Copyright &copy; 2012 the Testify Development Team</p>`)

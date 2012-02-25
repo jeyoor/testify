@@ -1,0 +1,2 @@
+~title~  (fetch `page:PRAISES:token`) 
+~nav#topnav ul~ (append `<li><a href="/">Pages</a></li>`)

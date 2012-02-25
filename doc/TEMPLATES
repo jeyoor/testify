@@ -8,7 +8,7 @@ Here's a user template:
 
 Here's a user script that uses the above template:
 
-  [#name] (content bob)
+  [#name] (content `bob`)
 
 After substitution, the HTML looks like this:
 
@@ -18,7 +18,7 @@ A user script consists of a series of transformation declarations. Each
 such declaration begins with a css selector, within square brackets
 "[]", which selects elements of the template to which a transformation
 should be applied. next is a transformation function and its arguments,
-enclosed within parentheses "()".
+enclosed within parentheses "()". Text arguments should be backquoted.
 
 The transformation function specifies what type of transformation to
 apply to the selected nodes. For example the content function replaces

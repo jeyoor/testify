@@ -1,0 +1,15 @@
+~title~  (content "testing")
+
+~header#banner~ (content  "bobab")
+
+~nav#topnav ul~ (append "  
+<li><a href='/'>Pages</a></li> " 
+)
+
+~nav#sidenav~ (append "
+  <li><a href='/next'>Next Page</a></li>
+ "
+) 
+
+~footer#legal~ 
+   (content " <p>Copyright &copy; 2012 the Testify Development Team</p> ") 
